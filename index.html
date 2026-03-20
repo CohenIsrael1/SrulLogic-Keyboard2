@@ -1,0 +1,800 @@
+שיחה עם Gemini
+אמרת
+בא נבנה משהו
+
+‫Gemini אמר
+מעולה, אני זורם לגמרי. אין כמו התחושה של לבנות משהו מאפס.
+
+כדי שנתמקד ונוציא משהו איכותי תחת הידיים (הווירטואליות) שלנו, באיזה כיוון אנחנו? הנה כמה רעיונות למה שאנחנו יכולים להרים עכשיו:
+
+קוד ותוכנה: אולי אפליקציה פשוטה, בוט לטלגרם, משחק מבוסס טקסט או אתר נחיתה?
+
+תוכן ויצירה: תסריט לסרטון ויראלי, עולם פנטזיה שלם למשחק תפקידים, או אולי קמפיין שיווקי למותג דמיוני?
+
+תכנון ופרויקטים: תוכנית עבודה למיזם חדש, לו"ז לשיפוץ בבית, או תפריט לאירוע קונספט?
+
+משהו אומנותי: אני יכול לייצר לנו תמונות, מוזיקה או אפילו וידאו אם נחליט על קונספט ויזואלי.
+
+מה אומר? יש לך כבר קצה חוט של רעיון, או שאתה רוצה שנזרוק קוביות ונראה לאן זה הולך?
+
+אמרת
+נבנה כלי שאם טעיתי והתכוונתי לכתוב בעברית וכתבתי אנגלית אני אוכל להכניס את הטקסט ולשנות
+
+אני רוצה כמה דברים
+
+1. שיהיה מצב אוטומטי ומצב ידני לבחירה בתוך הכלי במצב ידני יהיה כתוב הפוך לעברית והפוך לאנגלית
+
+2. שיהיה למעלה בצד כפתור סגנון בו יוכל המשתמש לבחור בהיר כהה או אוטומטי
+
+3. שיהיה למעלה במרכז מקום ללוגו (יש לי לוגו מוכן אני צריך שהקובץ יקלוט אותו בגיטהאב)
+
+4. למטה צריך להיות כפתורים העתק, נקה, חפש בגוגל, שתף (אם יש לך עוד הצעה תגיד לי)
+
+5. אני רוצה שיהיה מונה תווים איפה שמכניסים את הטקסט
+
+6. תיבה נפרדת לקלט ותיבה נפרדת לפלט
+
+7. עיצוב מטורף ומגניב
+
+שים לב לשם שכבר בחרתי srullogik אל תשכח לשלב אותו כמו שכבר רואים בתמונה
+
+מצרף תמונות, אתה מסכים לפעול לפי ההנחיות שלי?
+
+‫Gemini אמר
+זה נראה כמו פרויקט מצוין! התמונה ששלחת נותנת בסיס מעולה לעיצוב – הקו הנקי עם הפינות המעוגלות והצבעוניות החזקה (סגול, ירוק, אדום) נראה מודרני מאוד.
+
+אני לגמרי איתך. בוא נבנה גרסת HTML/CSS/JavaScript אחת חזקה, שתכיל את כל הלוגיקה והעיצוב שביקשת.
+
+הצעה לשדרוג (סעיף 4):
+מעבר למה שביקשת, הייתי מוסיף כפתור "שלח ל-WhatsApp" (כפי שמופיע בתמונה שלך) – זה שימושי מאוד למשתמשים שכותבים הודעה ארוכה בטעות באנגלית ורוצים להעביר אותה מהר לנייד.
+
+הקוד המלא (קובץ אחד לשימוש מיידי)
+שמור את הקוד הבא כקובץ index.html.
+
+HTML
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srullogic Systems | Keyboard Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7240f2;
+            --bg-light: #f4f7fe;
+            --text-light: #333;
+            --card-light: #ffffff;
+            --accent-green: #1ebea5;
+            --accent-red: #ff4757;
+            --accent-blue: #3498db;
+            --accent-gray: #636e72;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg-light: #1a1a2e;
+            --text-light: #e0e0e0;
+            --card-light: #16213e;
+            --primary: #9d77ff;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            background: var(--card-light);
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        /* כפתור סגנון */
+        .style-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logo-area {
+            margin-bottom: 20px;
+        }
+
+        .logo-area h2 {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo-area h1 {
+            margin: 5px 0;
+            font-weight: 800;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        /* בורר מצבים */
+        .mode-selector {
+            display: flex;
+            background: #eee;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+
+        [data-theme="dark"] .mode-selector { background: #0f172a; }
+
+        .mode-selector button {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .mode-selector button.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(114, 64, 242, 0.3);
+        }
+
+        /* תיבות טקסט */
+        .text-box {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            border: 2px solid #e0e6ed;
+            border-radius: 20px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: none;
+            background: transparent;
+            color: inherit;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .char-count {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* כפתורי ידני */
+        .manual-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-lang {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* כפתורי פעולה */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-action {
+            border: none;
+            padding: 12px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .btn-action:active { transform: scale(0.95); }
+
+        .bg-green { background: var(--accent-green); }
+        .bg-red { background: var(--accent-red); }
+        .bg-blue { background: var(--accent-blue); }
+        .bg-gray { background: var(--accent-gray); }
+        .btn-full { grid-column: span 2; }
+
+        footer {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="style-btn" onclick="toggleTheme()">🎨 סגנון</button>
+
+    <div class="logo-area">
+        <h2>Srullogic Systems</h2>
+        <h1>⚡ Keyboard Elite</h1>
+    </div>
+
+    <div class="mode-selector">
+        <button id="mode-auto" class="active" onclick="setMode('auto')">אוטומטי</button>
+        <button id="mode-manual" onclick="setMode('manual')">ידני</button>
+    </div>
+
+    <div class="text-box">
+        <textarea id="inputArea" placeholder="כתוב כאן . . ." oninput="handleInput()"></textarea>
+        <div class="char-count"><span id="inCount">0</span> תווים</div>
+    </div>
+
+    <div id="manualBtns" class="manual-controls" style="display: none;">
+        <button class="btn-lang" onclick="convert('heToEn')">us English</button>
+        <button class="btn-lang" onclick="convert('enToHe')">IL עברית</button>
+    </div>
+
+    <div class="text-box">
+        <textarea id="outputArea" readonly placeholder="התוצאה . . ."></textarea>
+        <div class="char-count"><span id="outCount">0</span> תווים</div>
+    </div>
+
+    <div class="action-grid">
+        <button class="btn-action bg-green" onclick="copyText()">📋 העתק</button>
+        <button class="btn-action bg-green" onclick="whatsappShare()">💬 WhatsApp</button>
+        <button class="btn-action bg-red" onclick="clearAll()">🗑️ נקה</button>
+        <button class="btn-action bg-blue" onclick="shareText()">📤 שתף</button>
+        <button class="btn-action bg-red btn-full" onclick="googleSearch()">🔍 חפש בגוגל</button>
+        <button class="btn-action bg-gray btn-full" onclick="location.reload()">🔄 רענן דף</button>
+    </div>
+
+    <footer>.Srullogic Systems. All rights reserved 2026 ©</footer>
+</div>
+
+<script>
+    const mapping = {
+        'q':'/','w':'\'','e':'ק','r':'ר','t':'א','y':'ט','u':'ו','i':'ן','o':'ם','p':'פ',
+        'a':'ש','s':'ד','d':'ג','f':'כ','g':'ע','h':'י','j':'ח','k':'ל','l':'ך',';':'ף','\'':',',
+        'z':'ז','x':'ס','c':'ב','v':'ה','b':'נ','n':'מ','m':'צ',',':'ת','.':'ץ','/':'.',' ':' '
+    };
+    
+    const revMapping = Object.fromEntries(Object.entries(mapping).map(([k, v]) => [v, k]));
+
+    let currentMode = 'auto';
+
+    function setMode(mode) {
+        currentMode = mode;
+        document.getElementById('mode-auto').classList.toggle('active', mode === 'auto');
+        document.getElementById('mode-manual').classList.toggle('active', mode === 'manual');
+        document.getElementById('manualBtns').style.display = (mode === 'manual') ? 'grid' : 'none';
+    }
+
+    function handleInput() {
+        const input = document.getElementById('inputArea').value;
+        document.getElementById('inCount').innerText = input.length;
+        
+        if(currentMode === 'auto') {
+            autoConvert(input);
+        }
+    }
+
+    function autoConvert(text) {
+        // לוגיקה פשוטה: אם רוב התווים הם אנגלית, נהפוך לעברית
+        const englishChars = text.match(/[a-z]/gi) || [];
+        if (englishChars.length > text.length / 4) {
+            convert('enToHe');
+        } else {
+            document.getElementById('outputArea').value = text;
+        }
+    }
+
+    function convert(type) {
+        const input = document.getElementById('inputArea').value;
+        let result = "";
+        const map = (type === 'enToHe') ? mapping : revMapping;
+
+        for (let char of input.toLowerCase()) {
+            result += map[char] || char;
+        }
+        
+        document.getElementById('outputArea').value = result;
+        document.getElementById('outCount').innerText = result.length;
+    }
+
+    function toggleTheme() {
+        const body = document.body;
+        const current = body.getAttribute('data-theme');
+        body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    }
+
+    function copyText() {
+        const out = document.getElementById('outputArea');
+        out.select();
+        document.execCommand('copy');
+        alert('הטקסט הועתק!');
+    }
+
+    function clearAll() {
+        document.getElementById('inputArea').value = "";
+        document.getElementById('outputArea').value = "";
+        document.getElementById('inCount').innerText = "0";
+        document.getElementById('outCount').innerText = "0";
+    }
+
+    function googleSearch() {
+        const text = document.getElementById('outputArea').value || document.getElementById('inputArea').value;
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function whatsappShare() {
+        const text = document.getElementById('outputArea').value;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function shareText() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Keyboard Elite Share',
+                text: document.getElementById('outputArea').value
+            });
+        } else {
+            alert('שיתוף לא נתמך בדפדפן זה, העתק את הטקסט.');
+        }
+    }
+</script>
+
+</body>
+</html>
+דגשים על הביצוע:
+מצב אוטומטי: במצב "אוטומטי", הקוד מזהה אם הקלדת באנגלית ומתרגם מיד לעברית בתיבה למטה.
+
+מצב ידני: לחיצה על כפתור "ידני" תחשוף שני כפתורים נוספים (כמו בתמונה שלך) להמרה מכוונת.
+
+ניהול סגנון: כפתור "סגנון" למעלה מחליף בין מצב בהיר לכהה (Dark Mode) עם מעברים חלקים.
+
+מונה תווים: מופיע בתוך התיבות בפינה הימנית התחתונה.
+
+לוגו: השארתי מקום לכותרות טקסטואליות. ב-GitHub, תוכל פשוט להחליף את ה-<h1> בתגית <img src="logo.png">.
+
+איך זה נראה לך? רוצה שנשנה צבעים מסוימים או שנוסיף פונקציה של ניקוד?
+
+אמרת
+קוד יפה אך כמה הערות:
+
+1. לא עשית מקום ללוגו
+
+2. בסגנון אני רוצה 3 אפשרויות בהיר כהה ואוטומטי
+
+3. אני צריך שאם מחפשים בגוגל מקלדת הפוכה או משהו דומה ימצאו את זה מייד + קידום אתרים
+
+4. מצרף לך תמונה איך אמור להיראות הלוגו (המיקום), הכיתוב למטה (הכלי המוביל לפתרון בעיות מקלדת הפוכה והמרת טקסט מעברית לאנגלית.
+
+), והסגנון (רשימה נפתחת),
+
+‫Gemini אמר
+הבנתי אותך מצוין. אנחנו משדרגים את הקוד לרמה של מוצר מוכן להפצה (Production Ready), כולל התשתית ל-SEO (קידום אתרים) כדי שגוגל יאהב את הדף, ומבנה מדויק לפי התמונה החדשה.
+
+מה הוספתי בשדרוג הזה:
+תשתית SEO מלאה: הוספתי תגיות Meta, כותרות h1 ו-h2 עם מילות מפתח ("מקלדת הפוכה", "המרת טקסט") כדי שגוגל יאנדקס אותך גבוה.
+
+תפריט סגנון (Dropdown): רשימה נפתחת עם 3 מצבים: בהיר, כהה, ומצב מערכת (Auto).
+
+מקום ייעודי ללוגו: הוספתי תגית img מוכנה במיקום המדויק. פשוט שים קובץ בשם logo.png באותה תיקייה בגיטהאב.
+
+טקסט קידומי בתחתית: הוספתי את הפסקה שביקשת בעיצוב נקי מתחת לכפתורים.
+
+הקוד המעודכן (index.html)
+HTML
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>מקלדת הפוכה | Keyboard Elite - Srullogic Systems</title>
+    <meta name="description" content="הכלי המוביל לפתרון בעיות מקלדת הפוכה והמרת טקסט מעברית לאנגלית. הפכו ג'יבריש לטקסט קריא בלחיצת כפתור.">
+    <meta name="keywords" content="מקלדת הפוכה, המרת טקסט, עברית אנגלית, תיקון ג'יבריש, Srullogic">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #7240f2;
+            --bg: #f4f7fe;
+            --text: #333;
+            --card: #ffffff;
+            --input-border: #e0e6ed;
+            --accent-green: #1ebea5;
+            --accent-red: #ff4757;
+            --accent-blue: #3498db;
+            --accent-gray: #636e72;
+            --transition: all 0.3s ease;
+        }
+
+        /* מצב כהה */
+        [data-theme="dark"] {
+            --bg: #121212;
+            --text: #ffffff;
+            --card: #1e1e1e;
+            --input-border: #333;
+            --primary: #9d77ff;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 480px;
+            background: var(--card);
+            padding: 40px 30px;
+            border-radius: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        /* כפתור סגנון נפתח */
+        .style-dropdown {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+        }
+
+        .style-dropdown select {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        /* אזור לוגו */
+        .logo-container {
+            margin-bottom: 10px;
+        }
+        
+        .main-logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .brand-name {
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        h1 {
+            font-weight: 800;
+            font-size: 2.4rem;
+            color: var(--primary);
+            margin: 5px 0 25px 0;
+        }
+
+        /* בורר מצבים */
+        .mode-selector {
+            display: flex;
+            background: rgba(0,0,0,0.05);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            padding: 6px;
+        }
+        [data-theme="dark"] .mode-selector { background: rgba(255,255,255,0.05); }
+
+        .mode-selector button {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            background: transparent;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .mode-selector button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* תיבות טקסט */
+        .text-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            border: 2px solid var(--input-border);
+            border-radius: 22px;
+            padding: 18px;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: none;
+            background: transparent;
+            color: inherit;
+            font-size: 1.1rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .char-count {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        /* כפתורי המרה ידנית */
+        .manual-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn-lang {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 18px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* גריד כפתורים */
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn-action {
+            border: none;
+            padding: 15px;
+            border-radius: 18px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+
+        .btn-action:hover { opacity: 0.9; }
+        .btn-action:active { transform: scale(0.97); }
+
+        .bg-green { background: var(--accent-green); }
+        .bg-red { background: var(--accent-red); }
+        .bg-blue { background: var(--accent-blue); }
+        .bg-gray { background: var(--accent-gray); }
+        .btn-full { grid-column: span 2; }
+
+        /* טקסט קידומי SEO */
+        .seo-description {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text);
+            opacity: 0.8;
+            border-top: 1px solid var(--input-border);
+            padding-top: 20px;
+        }
+
+        footer {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="style-dropdown">
+        <select id="themeSelect" onchange="changeTheme()">
+            <option value="light">☀️ בהיר</option>
+            <option value="dark">🌙 כהה</option>
+            <option value="auto">🖥️ אוטומטי</option>
+        </select>
+    </div>
+
+    <div class="logo-container">
+        <img src="logo.png" alt="Srullogic Logo" class="main-logo" onerror="this.style.display='none'">
+        <p class="brand-name">Srullogic Systems</p>
+        <h1>Keyboard Elite</h1>
+    </div>
+
+    <div class="mode-selector">
+        <button id="mode-auto" class="active" onclick="setMode('auto')">אוטומטי</button>
+        <button id="mode-manual" onclick="setMode('manual')">ידני</button>
+    </div>
+
+    <div class="text-box">
+        <textarea id="inputArea" placeholder="הקלד כאן טקסט לתיקון..." oninput="handleInput()"></textarea>
+        <div class="char-count"><span id="inCount">0</span> תווים</div>
+    </div>
+
+    <div id="manualBtns" class="manual-controls" style="display: none;">
+        <button class="btn-lang" onclick="convert('enToHe')">IL עברית</button>
+        <button class="btn-lang" onclick="convert('heToEn')">us English</button>
+    </div>
+
+    <div class="text-box">
+        <textarea id="outputArea" readonly placeholder="התוצאה תופיע כאן..."></textarea>
+        <div class="char-count"><span id="outCount">0</span> תווים</div>
+    </div>
+
+    <div class="action-grid">
+        <button class="btn-action bg-green" onclick="copyText()">📋 העתק</button>
+        <button class="btn-action bg-green" onclick="whatsappShare()">💬 WhatsApp</button>
+        <button class="btn-action bg-red" onclick="clearAll()">🗑️ נקה</button>
+        <button class="btn-action bg-blue" onclick="shareText()">📤 שתף</button>
+        <button class="btn-action bg-red btn-full" onclick="googleSearch()">🔍 חפש בגוגל</button>
+        <button class="btn-action bg-gray btn-full" onclick="location.reload()">🔄 רענן דף</button>
+    </div>
+
+    <div class="seo-description">
+        <p>הכלי המוביל לפתרון בעיות <strong>מקלדת הפוכה</strong> והמרת טקסט מעברית לאנגלית.</p>
+    </div>
+
+    <footer>.Srullogic Systems. All rights reserved 2026 ©</footer>
+</div>
+
+<script>
+    const mapping = {
+        'q':'/','w':'\'','e':'ק','r':'ר','t':'א','y':'ט','u':'ו','i':'ן','o':'ם','p':'פ',
+        'a':'ש','s':'ד','d':'ג','f':'כ','g':'ע','h':'י','j':'ח','k':'ל','l':'ך',';':'ף','\'':',',
+        'z':'ז','x':'ס','c':'ב','v':'ה','b':'נ','n':'מ','m':'צ',',':'ת','.':'ץ','/':'.',' ':' '
+    };
+    const revMapping = Object.fromEntries(Object.entries(mapping).map(([k, v]) => [v, k]));
+
+    let currentMode = 'auto';
+
+    function setMode(mode) {
+        currentMode = mode;
+        document.getElementById('mode-auto').classList.toggle('active', mode === 'auto');
+        document.getElementById('mode-manual').classList.toggle('active', mode === 'manual');
+        document.getElementById('manualBtns').style.display = (mode === 'manual') ? 'grid' : 'none';
+    }
+
+    function handleInput() {
+        const input = document.getElementById('inputArea').value;
+        document.getElementById('inCount').innerText = input.length;
+        if(currentMode === 'auto') autoConvert(input);
+    }
+
+    function autoConvert(text) {
+        const englishChars = text.match(/[a-z]/gi) || [];
+        if (englishChars.length > text.length / 4) convert('enToHe');
+        else document.getElementById('outputArea').value = text;
+    }
+
+    function convert(type) {
+        const input = document.getElementById('inputArea').value;
+        let result = "";
+        const map = (type === 'enToHe') ? mapping : revMapping;
+        for (let char of input.toLowerCase()) {
+            result += map[char] || char;
+        }
+        document.getElementById('outputArea').value = result;
+        document.getElementById('outCount').innerText = result.length;
+    }
+
+    // ניהול סגנון - 3 אפשרויות
+    function changeTheme() {
+        const theme = document.getElementById('themeSelect').value;
+        const body = document.body;
+        
+        if (theme === 'auto') {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            body.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        } else {
+            body.setAttribute('data-theme', theme);
+        }
+    }
+
+    // פונקציות עזר
+    function copyText() {
+        const out = document.getElementById('outputArea');
+        out.select();
+        document.execCommand('copy');
+    }
+
+    function clearAll() {
+        document.getElementById('inputArea').value = "";
+        document.getElementById('outputArea').value = "";
+        document.getElementById('inCount').innerText = "0";
+        document.getElementById('outCount').innerText = "0";
+    }
+
+    function googleSearch() {
+        const text = document.getElementById('outputArea').value || document.getElementById('inputArea').value;
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function whatsappShare() {
+        const text = document.getElementById('outputArea').value;
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function shareText() {
+        if (navigator.share) {
+            navigator.share({ title: 'Keyboard Elite', text: document.getElementById('outputArea').value });
+        }
+    }
+</script>
+
+</body>
+</html>
